@@ -1,6 +1,6 @@
 services:
   pmtile-server:
-    image: nginx:latest-alpine
+    image: nginx:alpine
     container_name: pmtile-server
     ports:
       - "80:80"
