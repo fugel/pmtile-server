@@ -28,15 +28,15 @@
     // this is so we share one instance across the JS code and the map renderer
     protocol.add(p);
 
-    // we first fetch the header so we can get the center lon, lat of the map.
+    // we first fetch the header so we can get the center lon,hellow lat of the map.
     p.getHeader().then(h => {
         const map = new maplibregl.Map({
             container: 'map',
+            maxPitch: 75,
             zoom: h.maxZoom - 5,
             center: [h.centerLon, h.centerLat],
             style: "style.json",
         });
     });
 </script>
-</body>
 </html>
