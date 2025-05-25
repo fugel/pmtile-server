@@ -53,7 +53,28 @@
                     return prevStyle;
                 }
             });
+            map.addControl(
+                new maplibregl.NavigationControl({
+                    visualizePitch: true,
+                    showZoom: true,
+                    showCompass: true
+                })
+            );
+            map.addControl(
+                new maplibregl.TerrainControl({
+                    source: 'terrainSource',
+                    exaggeration: 0.1
+                })
+            )
+            map.addControl(
+                new maplibregl.GeolocateControl({
+                    positionOptions: {
+                        enableHighAccuracy: true
+                    },
+                    trackUserLocation: true
+                })
+            );
         });
     </script>
 
-</html> 
+</html>
