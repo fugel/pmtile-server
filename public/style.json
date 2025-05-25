@@ -24,8 +24,7 @@
             "tileSize": 256
         }
     },
-    "sprite": "http://localhost/sprites/sprites",
-    "glyphs": "http://localhost/fonts/{fontstack}/{range}.pbf",
+    "glyphs": "fonts/{fontstack}/{range}.pbf",
     "layers": [
         {
             "id": "background",
