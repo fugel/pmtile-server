@@ -12,6 +12,16 @@
         "openmaptiles": {
             "type": "vector",
             "url": "pmtiles://gloucestershire.pmtiles"
+        },
+        "terrainSource": {
+            "type": "raster-dem",
+            "url": "pmtiles://terrain.pmtiles",
+            "tileSize": 256
+        },
+        "hillshadeSource": {
+            "type": "raster-dem",
+            "url": "pmtiles://terrain.pmtiles",
+            "tileSize": 256
         }
     },
     "sprite": "http://localhost/sprites/sprites",
@@ -5701,7 +5711,10 @@
                 ]
             ],
             "layout": {
-                "text-field": ["get", "name:en"],
+                "text-field": [
+                    "get",
+                    "name:en"
+                ],
                 "text-font": [
                     "Source Sans Pro Regular"
                 ],
@@ -6076,25 +6089,76 @@
             "paint": {
                 "fill-extrusion-color": [
                     "interpolate",
-                    ["linear"],
-                    ["get", "render_height"], 0, "lightgray", 200, "royalblue", 400, "lightblue"
+                    [
+                        "linear"
+                    ],
+                    [
+                        "get",
+                        "render_height"
+                    ],
+                    0,
+                    "lightgray",
+                    200,
+                    "royalblue",
+                    400,
+                    "lightblue"
                 ],
                 "fill-extrusion-opacity": 0.3,
                 "fill-extrusion-height": [
                     "interpolate",
-                    ["linear"],
-                    ["zoom"],
+                    [
+                        "linear"
+                    ],
+                    [
+                        "zoom"
+                    ],
                     15,
                     0,
                     16,
-                    ["get", "render_height"]
+                    [
+                        "get",
+                        "render_height"
+                    ]
                 ],
-                "fill-extrusion-base": ["case",
-                    [">=", ["get", "zoom"], 16],
-                    ["get", "render_min_height"], 0
+                "fill-extrusion-base": [
+                    "case",
+                    [
+                        ">=",
+                        [
+                            "get",
+                            "zoom"
+                        ],
+                        16
+                    ],
+                    [
+                        "get",
+                        "render_min_height"
+                    ],
+                    0
                 ]
+            }
+        },
+        {
+            "id": "hills",
+            "type": "hillshade",
+            "source": "hillshadeSource",
+            "layout": {
+                "visibility": "visible"
+            },
+            "paint": {
+
+                "hillshade-illumination-direction": 315,
+                "hillshade-shadow-color": "#000000",
+                "hillshade-highlight-color": "#FFFFFF",
+                "hillshade-accent-color": "#FFFFFF",
+                "hillshade-exaggeration": 0.1
             }
         }
     ],
+    "terrain": {
+        "source": "terrainSource",
+        "exaggeration": 0.1
+    },
+    "sky": {},
     "id": "bright"
 }
