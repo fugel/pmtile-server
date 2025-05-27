@@ -4935,6 +4935,42 @@
                 "text-halo-width": 1.5
             }
         },
+    {
+      "id": "buildings 3D",
+      "type": "fill-extrusion",
+      "source": "openmaptiles",
+      "source-layer": "building",
+      "filter": [
+        "!=",
+        [
+          "get",
+          "hide_3d"
+        ],
+        true
+      ],
+      "minzoom": 15,
+      "layout": {},
+      "paint": {
+        "fill-extrusion-color": "#dcd7c6",
+        "fill-extrusion-opacity": 0.75,
+        "fill-extrusion-height": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          14,
+          0,
+          15,
+          [
+            "get",
+            "render_height"
+          ]
+        ]
+      }
+    },
         {
             "id": "road_oneway",
             "type": "symbol",
