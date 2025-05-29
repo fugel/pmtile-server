@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>PMTiles source and protocol</title>
+    <title>PMTiles source and protocol!!</title>
     <meta property="og:description" content="Uses the PMTiles plugin and protocol to present a map." />
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,28 +31,30 @@
         const protocol = new pmtiles.Protocol();
         maplibregl.addProtocol('pmtiles', protocol.tile);
 
-        const PMTILES_URL = 'gloucestershire.pmtiles';
+        const PMTILES_URL = 'data/map.pmtiles';
 
         const p = new pmtiles.PMTiles(PMTILES_URL);
 
         // this is so we share one instance across the JS code and the map renderer
         protocol.add(p);
 
-        // we first fetch the header so we can get the center lon,hellow lat of the map.
+        // we first fetch the header so we can get the center lon, lat of the map.
         p.getHeader().then(h => {
             const map = new maplibregl.Map({
                 container: 'map',
                 maxPitch: 75,
                 zoom: h.maxZoom - 5,
-                center: [h.centerLon, h.centerLat],
-                style: "style.json",
-                transformStyle: (prevStyle) => {
-                    if (prevStyle.sprite && !prevStyle.sprite.startsWith('http')) {
-                        prevStyle.sprite = window.location.origin + '/sprites/sprites';
-                    }
-                    return prevStyle;
-                }
-            });
+                center: [h.centerLon, h.centerLat]
+            })
+
+            map.setStyle('style.json', {
+                transformStyle: (previousStyle, nextStyle) => ({
+                    ...nextStyle,
+                    // make relative sprite path like "../sprite" absolute
+                    sprite: new URL(nextStyle.sprite, window.location.origin + "/sprites/sprite").href,
+                })
+            })
+
             map.addControl(
                 new maplibregl.NavigationControl({
                     visualizePitch: true,
